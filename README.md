@@ -201,6 +201,7 @@ ORDER BY total_deaths DESC;
 ## Conclusion
 
 This project demonstrates how SQL can be used for powerful, real-world data analysis by uncovering global patterns in COVID-19 outcomes. Through data cleaning, transformation, and exploration of deaths and vaccinations, we found that high GDP or HDI did not guarantee lower death rates—highlighting the influence of other factors such as social interaction levels, healthcare infrastructure, and government responses. By combining advanced SQL techniques like window functions and joins, we tracked trends over time and drew meaningful insights into the effectiveness of public health strategies, emphasizing the importance of multidimensional analysis in understanding global crises.
+
 ---
 
 ## Files
