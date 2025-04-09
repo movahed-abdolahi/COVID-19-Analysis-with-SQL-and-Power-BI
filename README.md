@@ -14,17 +14,18 @@ SQL is the primary tool used for data cleaning, transformation, and exploratory 
 **Files Used:**
 
 - `CovidDeaths.xlsx`: Contains daily COVID-19 statistics (cases, deaths, population, etc.) by location.
-- `CovidVaccinations.xlsx`: Records daily vaccination progress by location.
+- `CovidVaccinations.xlsx`: Records daily vaccination progress by location.Also includes metrics like GDP, HDI, Extreme poverty, etc.
 - SQL Scripts:
   - `CovidAnalysis.sql`
   - `OverTimeAnalysis.sql`
-  - `1.sql`
+  - `CovidEDA.sql`
 
 ---
 
 ## Data Cleaning and Preparation
 
 **SQL File: `CovidAnalysis.sql`**
+**SQL File: `CovidEDA.sql`**
 
 ### 1. Inspecting and Understanding the Dataset
 
@@ -40,7 +41,7 @@ Filtered out irrelevant records (like aggregates at world or continent level) by
 
 ### 2. Total Cases vs Total Deaths
 
-Analyzed fatality likelihood:
+Analyzed fatality rate:
 
 ```sql
 SELECT location, date, total_cases, total_deaths,
@@ -95,7 +96,7 @@ ORDER BY total_death_count DESC;
 
 ### 6. Global Numbers Overview
 
-Total deaths and infection rates:
+Total deaths and infection rates at global view:
 
 ```sql
 SELECT SUM(new_cases) AS total_cases,
@@ -109,13 +110,10 @@ WHERE continent IS NOT NULL;
 
 ## Vaccination Data Analysis
 
-**SQL File: `1.sql`**
-
 ### 7. Joining Death and Vaccination Data
 
 ```sql
-SELECT dea.continent, dea.location, dea.date, dea.population,
-       vac.new_vaccinations
+SELECT *
 FROM CovidDeaths dea
 JOIN CovidVaccinations vac
   ON dea.location = vac.location AND dea.date = vac.date
@@ -186,13 +184,15 @@ ORDER BY total_deaths DESC;
 - **Filtering:** Using `WHERE`, `IS NOT NULL` to clean data.
 - **String & Type Conversion:** CAST, COALESCE for safe computation.
 - **Subqueries:** To filter for max values or create intermediate results.
+- **Created tables and views:** To save analysis results for further analysis and visualization
+
 
 ---
 
 ## Key Insights and Findings
 
-- Countries with higher HDI or GDP didn't always have lower death rates, suggesting other factors at play.
-- Stringency of government response had mixed correlation with fatality and spread rates.
+- Countries with higher HDI or GDP didn't always experience lower death rates, indicating that other influential factors—such as higher levels of social interaction, population density, age demographics, and public health infrastructure—played a significant role in shaping COVID-19 outcomes.
+- Stringency of government response had correlation with fatality and spread rates.
 - High-income countries led vaccination efforts, but not all saw proportional declines in death rates.
 - Rolling vaccination totals reveal acceleration patterns and public health strategy shifts.
 
@@ -200,8 +200,7 @@ ORDER BY total_deaths DESC;
 
 ## Conclusion
 
-This project demonstrates how SQL can be a powerful tool for performing detailed data analysis on real-world datasets. It highlights global trends in the COVID-19 pandemic, enabling data-driven insights into the effectiveness of healthcare response, vaccination strategies, and socioeconomic impacts.
-
+This project demonstrates how SQL can be used for powerful, real-world data analysis by uncovering global patterns in COVID-19 outcomes. Through data cleaning, transformation, and exploration of deaths and vaccinations, we found that high GDP or HDI did not guarantee lower death rates—highlighting the influence of other factors such as social interaction levels, healthcare infrastructure, and government responses. By combining advanced SQL techniques like window functions and joins, we tracked trends over time and drew meaningful insights into the effectiveness of public health strategies, emphasizing the importance of multidimensional analysis in understanding global crises.
 ---
 
 ## Files
@@ -209,7 +208,7 @@ This project demonstrates how SQL can be a powerful tool for performing detailed
 - 📊 `CovidDeaths.xlsx`
 - 💉 `CovidVaccinations.xlsx`
 - 🧹 `CovidAnalysis.sql` - Cleaning and base analysis.
-- 📈 `1.sql` - Vaccination-focused queries and joins.
+- 📈 `CovidEDA.sql` - Vaccination-focused queries and joins.
 - 🕒 `OverTimeAnalysis.sql` - Time-based trend analysis.
 
 ---
@@ -220,8 +219,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
+
 ## Author
 
 **Movahed Abdolahi**
 
-For inquiries, feedback, or collaboration: [LinkedIn / Email if you want to add here]
+For inquiries, feedback, or collaboration: [Connect with me on LinkedIn](https://www.linkedin.com/in/movahed-abdolahi/)
